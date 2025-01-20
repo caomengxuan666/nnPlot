@@ -3,16 +3,19 @@
 #include "nnPlot/Model.h"
 #include "nnPlot/Renderer.h"
 #include "nnPlot/Exporter.h"
+#include "nnPlot/surface.h"
 
 int main() {
     // 初始化 spdlog（设置日志级别为 info）
     spdlog::set_level(spdlog::level::info);
 
-    const int width = 1200;  // 增加画布宽度
-    const int height = 800;  // 增加画布高度
-    cairo_surface_t* surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
-    if (!surface) {
-        spdlog::error("Failed to create Cairo surface");
+    // 创建一个 surface 对象，指定宽度和高度
+    nnPlot::surface surface(1200, 800);
+
+    // 获取 Cairo 表面
+    cairo_surface_t* cairoSurface = surface.getSurface();
+    if (!cairoSurface) {
+        spdlog::error("Failed to get Cairo surface");
         return 1;
     }
 
@@ -49,7 +52,7 @@ int main() {
     }
 
     // 渲染
-    nnPlot::Renderer renderer(surface);
+    nnPlot::Renderer renderer(cairoSurface);
 
     // 设置背景颜色
     renderer.setBackgroundColor(0.95, 0.95, 0.95);  // 浅灰色背景
@@ -78,16 +81,13 @@ int main() {
     }
 
     // 添加标题
-    renderer.drawText(width / 2, 50, "Neural Network Structure", 24, 0.1, 0.1, 0.1);  // 标题
+    renderer.drawText(1200 / 2, 50, "Neural Network Structure", 24, 0.1, 0.1, 0.1);  // 标题
 
     // 保存为 PNG 文件
-    nnPlot::Exporter::exportToPNG(surface, "model_structure.png");
+    nnPlot::Exporter::exportToPNG(cairoSurface, "model_structure.png");
 
     // 保存为 PDF 文件
-    nnPlot::Exporter::exportToPDF(surface, "model_structure.pdf", width, height);
-
-    // 清理资源
-    cairo_surface_destroy(surface);
+    nnPlot::Exporter::exportToPDF(cairoSurface, "model_structure.pdf", 1200, 800);
 
     return 0;
 }

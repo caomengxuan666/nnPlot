@@ -1,10 +1,10 @@
 /**
  * @FilePath     : /nnPlot/include/nnPlot/Exporter.h
- * @Description  :
+ * @Description  :  Exporter,for PNG PDF and SVG export
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-20 19:16:55
+ * @LastEditTime : 2025-01-20 20:35:53
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 #ifndef EXPORTER_H
