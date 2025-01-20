@@ -1,10 +1,10 @@
 /**
- * @FilePath     : /nnPlot/include/utils.hpp
+ * @FilePath     : /nnPlot/src/utils.hpp
  * @Description  : Some utility functions for file operations.
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-20 18:32:11
+ * @LastEditTime : 2025-01-20 19:24:50
  * @Copyright    : PERSONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 
@@ -72,5 +72,49 @@ inline bool save_cairo_surface(cairo_surface_t* surface, const std::string& file
 }
 
 } // namespace File::Out
+
+namespace Utils::File {
+
+/**
+ * @brief Get the output path for a file.
+ * @param filename The name of the file.
+ * @param path The directory path (optional).
+ * @return The full output path.
+ **/
+inline std::filesystem::path get_output_path(const std::string& filename, const std::string& path = "") {
+    // 获取项目根目录
+    std::filesystem::path project_root = std::filesystem::current_path();
+    while (project_root.has_parent_path() && !std::filesystem::exists(project_root / "CMakeLists.txt")) {
+        project_root = project_root.parent_path();
+    }
+
+    // 如果找不到 CMakeLists.txt，则使用当前目录
+    if (!std::filesystem::exists(project_root / "CMakeLists.txt")) {
+        project_root = std::filesystem::current_path();
+        spdlog::warn("Could not find project root (CMakeLists.txt). Using current directory: {}", project_root.string());
+    }
+
+    // 默认输出目录（项目根目录 / example_output）
+    std::filesystem::path output_dir = path.empty() ? project_root / "example_output" : std::filesystem::path(path);
+
+    // 如果输出路径包含 'build'，则重定向到项目根目录下的 example_output
+    if (output_dir.string().find("build") != std::string::npos) {
+        output_dir = project_root / "example_output";
+        spdlog::warn("Output directory contained 'build'. Redirecting to: {}", output_dir.string());
+    }
+
+    // 创建输出目录（如果不存在）
+    if (!std::filesystem::exists(output_dir)) {
+        if (!std::filesystem::create_directories(output_dir)) {
+            spdlog::error("Failed to create output directory: {}", output_dir.string());
+            return "";
+        }
+    }
+
+    // 返回完整文件路径
+    return output_dir / filename;
+}
+
+} // namespace Utils::File
 
 #endif // UTILS_HPP
