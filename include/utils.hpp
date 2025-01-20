@@ -4,14 +4,13 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-20 15:29:55
+ * @LastEditTime : 2025-01-20 18:32:11
  * @Copyright    : PERSONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
-
-#include <cairo/cairo.h> 
+#include <cairo/cairo.h>
 #include <filesystem>
 #include <spdlog/spdlog.h>
 #include <string>

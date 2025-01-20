@@ -17,6 +17,10 @@ find_package(PkgConfig)
 # 查找spdlog
 find_package(spdlog CONFIG REQUIRED)
 
+# 查找 GoogleTest
+find_package(GTest REQUIRED)
+enable_testing()
+
 # 使用 pkg-config 查找 Cairo
 pkg_check_modules(Cairo REQUIRED cairo)
 
