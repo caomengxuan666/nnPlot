@@ -14,7 +14,7 @@ int main()
     nnPlot::surface surface(1200, 800);
 
     // 获取 Cairo 表面
-    cairo_surface_t* cairoSurface = surface.getSurface();
+    auto cairoSurface = surface.getSurface();
     if (!cairoSurface) {
         spdlog::error("Failed to get Cairo surface");
         return 1;
@@ -74,7 +74,7 @@ int main()
 
         // 2. 绘制连接线
         [&model](nnPlot::Renderer& renderer) {
-            renderer.setConnectionColor({ 0.8f, 0.7f, 0.7f });
+            renderer.setConnectionColor({ 0.8f, 0.8f, 0.8f });
             for (const auto& layerName : model.getLayerNames()) {
                 const nnPlot::Layer& layer = model.getLayer(layerName);
                 for (const auto& input : layer.getInputs()) {
