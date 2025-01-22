@@ -16,7 +16,7 @@
 ---
 ## 示例输出
 
-以下是example生成的神经网络结构图：
+以下是example生成的神经网络结构图:
 
 ![神经网络结构图](example_output/model_structure.png)
 
