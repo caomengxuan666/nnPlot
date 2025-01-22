@@ -14,6 +14,11 @@
 6. [许可证](#许可证)
 
 ---
+## 示例输出
+
+以下是example生成的神经网络结构图:
+
+![神经网络结构图](example_output/model_structure.png)
 
 ## 功能特性
 
@@ -33,6 +38,7 @@
 - **CMake**：版本 3.10 或更高。
 - **Cairo 库**：用于渲染。
 
+---
 ### 构建步骤
 
 1. 克隆仓库：
@@ -92,6 +98,7 @@ nnPlot::Property::LineWidth lineWidth{2.0f}; // 线宽
     };
 
 ```
+
 
 ## 项目结构
 
