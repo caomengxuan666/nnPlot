@@ -1,7 +1,7 @@
 #include <nnPlot/Exporter.h>
 #include <nnPlot/Model.h>
 #include <nnPlot/Renderer.h>
-#include <nnPlot/surface.h>
+#include <nnPlot/Surface.h>
 #include <spdlog/spdlog.h>
 #include <unordered_map>
 
@@ -55,13 +55,13 @@ int main()
     // 渲染
     nnPlot::Renderer renderer(cairoSurface);
 
-    // 定义图层颜色映射
+    // 定义图层颜色映射，使用十六进制字符串
     std::unordered_map<std::string, nnPlot::Property::Color> layerColors = {
-        { "input", { 0.2f, 0.6f, 0.8f } }, // 输入层颜色
-        { "output", { 0.8f, 0.4f, 0.2f } }, // 输出层颜色
-        { "fc1", { 0.4f, 0.7f, 0.4f } }, // 隐藏层颜色
-        { "fc2", { 0.4f, 0.7f, 0.4f } }, // 隐藏层颜色
-        { "fc3", { 0.4f, 0.7f, 0.4f } } // 隐藏层颜色
+        { "input", { "#39A2CC" } }, // 输入层颜色
+        { "output", { "#D2691E" } }, // 输出层颜色
+        { "fc1", { "#66BB6A" } }, // 隐藏层颜色
+        { "fc2", { "#66BB6A" } }, // 隐藏层颜色
+        { "fc3", { "#66BB6A" } } // 隐藏层颜色
     };
 
     // 定义绘制回调函数，注意，要先绘制连接线才能绘制图层，否则图层会被连接线遮挡，
@@ -69,12 +69,12 @@ int main()
     std::vector<nnPlot::Renderer::DrawCallback> callbacks = {
         // 1. 设置背景颜色
         [](nnPlot::Renderer& renderer) {
-            renderer.setBackgroundColor({ 0.95f, 0.95f, 0.95f });
+            renderer.setBackgroundColor({ "#F2F2F2" });
         },
 
         // 2. 绘制连接线
         [&model](nnPlot::Renderer& renderer) {
-            renderer.setConnectionColor({ 0.8f, 0.8f, 0.8f });
+            renderer.setConnectionColor({ "#CCCCCC" });
             for (const auto& layerName : model.getLayerNames()) {
                 const nnPlot::Layer& layer = model.getLayer(layerName);
                 for (const auto& input : layer.getInputs()) {
@@ -94,7 +94,7 @@ int main()
 
         // 4. 添加标题
         [](nnPlot::Renderer& renderer) {
-            renderer.drawText(1200 / 2.0, 50, "Neural Network Structure", 24, { 0.1f, 0.1f, 0.1f });
+            renderer.drawText(1200 / 2.0, 50, "Neural Network Structure", 24, { "#1A1A1A" });
         }
     };
 
@@ -107,5 +107,7 @@ int main()
     // 保存为 PDF 文件
     nnPlot::Exporter::exportToPDF(cairoSurface, "model_structure.pdf", 1200, 800);
 
+    //保存为SVG
+    nnPlot::Exporter::exportToSVG(cairoSurface, "model_structure.svg", 1200, 800);
     return 0;
 }

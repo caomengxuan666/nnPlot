@@ -1,11 +1,11 @@
-// nnPlot/include/nnPlot/surface.h
+// nnPlot/include/nnPlot/Surface.h
 /**
- * @FilePath     : /nnPlot/include/nnPlot/surface.h
+ * @FilePath     : /nnPlot/include/nnPlot/Surface.h
  * @Description  :
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-22 20:26:07
+ * @LastEditTime : 2025-01-23 20:54:12
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 #include <cairo/cairo.h>

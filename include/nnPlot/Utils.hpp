@@ -1,10 +1,10 @@
 /**
- * @FilePath     : /nnPlot/src/utils.hpp
+ * @FilePath     : /nnPlot/include/nnPlot/Utils.hpp
  * @Description  : Some utility functions for file operations.
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-20 19:24:50
+ * @LastEditTime : 2025-01-23 21:39:57
  * @Copyright    : PERSONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 
@@ -12,6 +12,7 @@
 #define UTILS_HPP
 #include <cairo/cairo.h>
 #include <filesystem>
+#include <nnPlot/Concrete_style.h>
 #include <spdlog/spdlog.h>
 #include <string>
 
@@ -81,7 +82,8 @@ namespace Utils::File {
  * @param path The directory path (optional).
  * @return The full output path.
  **/
-inline std::filesystem::path get_output_path(const std::string& filename, const std::string& path = "") {
+inline std::filesystem::path get_output_path(const std::string& filename, const std::string& path = "")
+{
     // 获取项目根目录
     std::filesystem::path project_root = std::filesystem::current_path();
     while (project_root.has_parent_path() && !std::filesystem::exists(project_root / "CMakeLists.txt")) {

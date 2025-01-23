@@ -3,7 +3,7 @@
 #include <cairo/cairo.h>
 #include <filesystem>
 #include <nnPlot/Exporter.h>
-#include <nnPlot/utils.hpp>
+#include <nnPlot/Utils.hpp>
 
 namespace fs = std::filesystem;
 

@@ -1,5 +1,5 @@
 #include <nnPlot/Exporter.h>
-#include <nnPlot/utils.hpp> // 包含工具函数
+#include <nnPlot/Utils.hpp> // 包含工具函数
 #include <cairo/cairo-pdf.h>      // 用于 PDF 导出
 #include <cairo/cairo-svg.h>      // 用于 SVG 导出
 
