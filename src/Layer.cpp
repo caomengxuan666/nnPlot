@@ -1,7 +1,12 @@
 // nnPlot/Layer.cpp
-#include "nnPlot/Layer.h"
+#include <nnPlot/Layer.h>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h> // 引入日志文件保存
 
 namespace nnPlot {
+
+// 创建日志文件
+static std::shared_ptr<spdlog::logger> logger = spdlog::basic_logger_mt("layer_logger", "layer_log.txt");
 
 Layer::Layer(const std::string& name, const std::string& label, int nodeCount)
     : name(name), label(label), nodeCount(nodeCount), x(0), y(0) {
@@ -36,15 +41,18 @@ double Layer::getY() const {
 }
 
 void Layer::setX(double x) {
+    logger->info("Setting X for Layer {}: {}", name, x); // 保存到日志文件
     this->x = x;
 }
 
 void Layer::setY(double y) {
+    logger->info("Setting Y for Layer {}: {}", name, y); // 保存到日志文件
     this->y = y;
 }
 
 void Layer::setNodeY(double y, int index) {
     if (index >= 0 && index < nodeCount) {
+        logger->info("Setting NodeY for Layer {} Node {}: {}", name, index, y); // 保存到日志文件
         nodeYPositions[index] = y;
     }
 }

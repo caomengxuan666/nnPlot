@@ -4,10 +4,12 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-22 20:17:18
+ * @LastEditTime : 2025-01-25 19:35:29
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
+
 #include "nnPlot/Layer.h"
+#include "spdlog/sinks/basic_file_sink.h"
 #include <cairo/cairo.h>
 #include <cmath>
 #include <nnPlot/Model.h>
@@ -15,13 +17,17 @@
 #include <spdlog/spdlog.h>
 #include <string>
 
+static spdlog::logger logger("logger", std::make_shared<spdlog::sinks::basic_file_sink_mt>("RenderLog.txt"));
+
 namespace nnPlot {
+
 
 Renderer::Renderer(cairo_surface_t* surface)
 {
     cr = cairo_create(surface);
     if (!cr) {
         spdlog::error("Failed to create Cairo context");
+        logger.error("Failed to create Cairo context");
     }
 }
 
@@ -62,7 +68,6 @@ void Renderer::setConnectionColor(const Property::Color& color)
 {
     connectionColor = color;
 }
-
 
 /**
  * @author       : cmx
@@ -105,9 +110,13 @@ void Renderer::drawText(double x, double y, const std::string& text, int fontSiz
 void Renderer::drawLayer(const Layer& layer, double x, double y, double width, double height)
 {
     if (cr) {
+        logger.info("Drawing Layer: {}, X: {}, Y: {}", layer.getName(), x, y); // 保存到日志文件
+
         // 绘制矩形节点
         for (int i = 0; i < layer.getNodeCount(); ++i) {
             double nodeY = layer.getNodeY(i);
+
+            logger.info("  Node {} Y: {}", i, nodeY); // 保存到日志文件
 
             // 重新设置节点颜色
             applyColor(nodeColor);
@@ -179,6 +188,7 @@ void Renderer::drawArrow(double x1, double y1, double x2, double y2)
 }
 
 void Renderer::render(const std::vector<DrawCallback>& callbacks) {
+    logger.info("Starting rendering process..."); // 保存到日志文件
     for (const auto& callback : callbacks) {
         callback(*this); // 依次执行回调函数
     }

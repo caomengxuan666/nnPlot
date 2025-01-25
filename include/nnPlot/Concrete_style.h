@@ -12,11 +12,10 @@
 #define CONCRETE_STYLE_H
 
 #include "Style.h"
-#include <memory>
 #include "StyleFactory.h"
+#include <memory>
 
 namespace nnPlot::LayerStyle {
-
 
 class ConvStyle : public Style {
 public:
@@ -24,13 +23,15 @@ public:
     // 注册器类
     class Register {
     public:
-        Register() {
+        Register()
+        {
             ConvStyle::registerSelf();
         }
     };
 
 private:
-    static void registerSelf() {
+    static void registerSelf()
+    {
         StyleFactory::collectStyles("Conv", []() { return std::make_unique<ConvStyle>(); });
     }
 
@@ -44,13 +45,15 @@ public:
     // 注册器类
     class Register {
     public:
-        Register() {
+        Register()
+        {
             PoolingStyle::registerSelf();
         }
     };
 
 private:
-    static void registerSelf() {
+    static void registerSelf()
+    {
         StyleFactory::collectStyles("Pooling", []() { return std::make_unique<PoolingStyle>(); });
     }
 

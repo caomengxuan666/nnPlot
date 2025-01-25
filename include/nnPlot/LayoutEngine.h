@@ -4,26 +4,28 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-23 19:05:37
+ * @LastEditTime : 2025-01-25 20:23:45
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
-**/
+ **/
 // nnPlot/LayoutEngine.h
 #ifndef LAYOUT_ENGINE_H
 #define LAYOUT_ENGINE_H
 
+#include <memory>
+#include <nnPlot/Model.h>
+#include <nnPlot/concrete_layout.hpp>
 namespace nnPlot {
 
-class Model;
+template <class LayoutMode = nnPlot::Layout::VerticalLayout>
 class LayoutEngine {
 public:
-    // 自动布局
-    void layout(Model& model);
-
-private:
-    // 层次化布局
-    void hierarchicalLayout(Model& model);
+    LayoutEngine()
+        : mode(std::make_unique<LayoutMode>())
+    {
+    }
+    void applyLayout(Model& model); // 将计算出来的位置应用到模型中,调用具体模式的layout方法。
+    std::unique_ptr<LayoutMode> mode;
 };
-
-} // namespace nnPlot
+}
 
 #endif // LAYOUT_ENGINE_H

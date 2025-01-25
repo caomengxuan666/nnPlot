@@ -1,3 +1,6 @@
+#include "nnPlot/concrete_layout.hpp"
+#include <nnPlot/LayoutEngine.h>
+#include <spdlog/details/circular_q.h>
 #include <nnPlot/Exporter.h>
 #include <nnPlot/Model.h>
 #include <nnPlot/Renderer.h>
@@ -17,7 +20,7 @@ int main()
     auto cairoSurface = surface.getSurface();
     if (!cairoSurface) {
         spdlog::error("Failed to get Cairo surface");
-        return 1;
+        assert_perror(-1);
     }
 
     // 定义模型结构
@@ -36,21 +39,9 @@ int main()
     model.connectLayers("fc2", "fc3");
     model.connectLayers("fc3", "output");
 
-    // 手动设置每一层的 x 和 y 坐标
-    const int layerSpacing = 200; // 每层之间的水平间距
-    const int nodeSpacing = 50; // 每个节点之间的垂直间距
-
-    int x = 50; // 初始 x 坐标
-    for (const auto& layerName : model.getLayerNames()) {
-        nnPlot::Layer& layer = model.getLayer(layerName);
-        int y = 50; // 初始 y 坐标
-        layer.setX(x);
-        for (int i = 0; i < layer.getNodeCount(); ++i) {
-            layer.setNodeY(y, i);
-            y += nodeSpacing;
-        }
-        x += layerSpacing;
-    }
+    //应用垂直布局
+    nnPlot::LayoutEngine<nnPlot::Layout::VerticalLayout> layoutEngine;
+    layoutEngine.applyLayout(model); // 应用布局
 
     // 渲染
     nnPlot::Renderer renderer(cairoSurface);
@@ -107,7 +98,7 @@ int main()
     // 保存为 PDF 文件
     nnPlot::Exporter::exportToPDF(cairoSurface, "model_structure.pdf", 1200, 800);
 
-    //保存为SVG
+    // 保存为SVG
     nnPlot::Exporter::exportToSVG(cairoSurface, "model_structure.svg", 1200, 800);
     return 0;
 }

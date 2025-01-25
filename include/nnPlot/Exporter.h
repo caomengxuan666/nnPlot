@@ -17,10 +17,9 @@ namespace nnPlot {
 
 class Exporter {
 public:
-// 修改后的函数声明
-static void exportToPNG(cairo_surface_t* surface, const std::string& filename, const std::string& path = "");
-static void exportToPDF(cairo_surface_t* surface, const std::string& filename, double width, double height, const std::string& path = "");
-static void exportToSVG(cairo_surface_t* surface, const std::string& filename, double width, double height, const std::string& path = "");
+    static void exportToPNG(cairo_surface_t* surface, const std::string& filename, const std::string& path = "");
+    static void exportToPDF(cairo_surface_t* surface, const std::string& filename, double width, double height, const std::string& path = "");
+    static void exportToSVG(cairo_surface_t* surface, const std::string& filename, double width, double height, const std::string& path = "");
 };
 
 } // namespace nnPlot
