@@ -4,18 +4,18 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-23 21:40:41
+ * @LastEditTime : 2025-01-26 16:07:40
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 #include <nnPlot/Concrete_style.h>
-
+#include <nnPlot/ThreeD_shape.hpp>
 
 namespace nnPlot::LayerStyle {
 
+using namespace nnPlot::shape::Rectangle_3D;
 void ConvStyle::apply() const
 {
     // todo  实现卷积层的绘图样式
-    
 }
 
 void PoolingStyle::apply() const
