@@ -4,7 +4,7 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-26 16:07:42
+ * @LastEditTime : 2025-01-26 17:54:56
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 
@@ -13,7 +13,7 @@
 
 namespace nnPlot::shape::Rectangle_3D {
 #include <cairo/cairo.h>
-cairo_pattern_t* create_gradient(double x, double y, double width, double height, bool is_back)
+inline cairo_pattern_t* create_gradient(double x, double y, double width, double height, bool is_back)
 {
     cairo_pattern_t* gradient;
     if (is_back) {
@@ -29,7 +29,7 @@ cairo_pattern_t* create_gradient(double x, double y, double width, double height
 }
 
 // 函数：绘制矩形
-void draw_rectangle(cairo_t* cr, double x, double y, double width, double height)
+inline void draw_rectangle(cairo_t* cr, double x, double y, double width, double height)
 {
     cairo_move_to(cr, x, y); // 左上角
     cairo_line_to(cr, x + width, y); // 右上角
@@ -39,7 +39,7 @@ void draw_rectangle(cairo_t* cr, double x, double y, double width, double height
 }
 
 // 函数：绘制连接正面和背面的边
-void draw_edges(cairo_t* cr, double x, double y, double width, double height, double offset_x, double offset_y)
+inline void draw_edges(cairo_t* cr, double x, double y, double width, double height, double offset_x, double offset_y)
 {
     cairo_move_to(cr, x + width, y); // 右上角
     cairo_line_to(cr, x + width + offset_x, y - offset_y); // 背面右上

@@ -4,7 +4,7 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-23 19:32:47
+ * @LastEditTime : 2025-01-30 22:53:03
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 #ifndef PLOTPROPERTY_H
@@ -170,6 +170,7 @@ struct TextStyle {
     std::string alignment; // 对齐方式，例如 "left", "center", "right"
 };
 
+//todo
 struct Shadow {
     Color color; // 阴影颜色
     float offsetX; // 阴影 X 偏移
@@ -177,6 +178,7 @@ struct Shadow {
     float blur; // 阴影模糊半径
 };
 
+//todo
 struct Padding {
     float top;
     float right;
@@ -196,6 +198,7 @@ struct PlainText {
     Opacity opacity;
 };
 
+//todo
 struct LayerStyle {
     Color fillColor; // 填充颜色
     Color borderColor; // 边框颜色
@@ -212,6 +215,7 @@ struct LayerStyle {
     Padding padding;
 };
 
+//todo
 struct ConnectionStyle {
     Color color; // 连接线颜色
     LineWidth width; // 连接线宽度

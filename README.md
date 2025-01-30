@@ -105,31 +105,43 @@ nnPlot::Property::LineWidth lineWidth{2.0f}; // 线宽
 ```plaintext
 nnPlot/
 ├── CMakeLists.txt          # 根 CMake 配置文件
+├── LICENSE                 # 许可证文件
 ├── README.md               # 项目文档
-├── build/                  # 构建目录（自动生成）
 ├── docs/                   # 文档文件
-├── example_output/         # 示例输出文件（如 PDF、PNG）
 ├── examples/               # 示例代码
+│   ├── CMakeLists.txt      # 示例代码的 CMake 配置
+│   ├── example.cpp         # 示例代码文件
+│   ├── example_pooling.cpp # 示例代码文件
+│   ├── example_shapes.cpp  # 示例代码文件
+│   ├── official_draw_example.cpp # 示例代码文件
+│   └── preset_conv.cpp     # 示例代码文件
 ├── include/                # 头文件
 │   └── nnPlot/             # 库头文件
-│       ├── Exporter.h      # 导出模块
-│       ├── Layer.h         # 层模块
-│       ├── LayoutEngine.h  # 布局引擎
-│       ├── Model.h         # 神经网络模型
-│       ├── Property.h      # 视觉属性
-│       ├── Renderer.h      # 渲染模块
-│       └── utils.hpp       # 工具函数
+│       ├── Concrete_style.h # 具体样式头文件
+│       ├── Exporter.h       # 导出模块头文件
+│       ├── Layer.h          # 层模块头文件
+│       ├── LayoutEngine.h   # 布局引擎头文件
+│       ├── Model.h          # 神经网络模型头文件
+│       ├── Property.h       # 视觉属性头文件
+│       ├── Renderer.h       # 渲染模块头文件
+│       ├── Style.h          # 样式头文件
+│       ├── StyleFactory.h   # 样式工厂头文件
+│       ├── Surface.h        # 表面头文件
+│       ├── ThreeD_shape.hpp # 三维形状头文件
+│       ├── Utils.hpp        # 工具函数头文件
+│       └── concrete_layout.hpp # 具体布局头文件
 ├── src/                    # 源文件
 │   ├── CMakeLists.txt      # 源文件 CMake 配置
+│   ├── Concrete_style.cpp  # 具体样式实现
 │   ├── Exporter.cpp        # 导出模块实现
 │   ├── Layer.cpp           # 层模块实现
 │   ├── LayoutEngine.cpp    # 布局引擎实现
 │   ├── Model.cpp           # 模型实现
-│   └── Renderer.cpp        # 渲染模块实现
+│   ├── Renderer.cpp        # 渲染模块实现
+│   └── StyleFactory.cpp    # 样式工厂实现
 └── test/                   # 单元测试
     ├── CMakeLists.txt      # 测试 CMake 配置
     └── ExporterTest.cpp    # 导出模块测试用例
-```
 
 ## 致谢
 Cairo 图形库：提供渲染后端支持。

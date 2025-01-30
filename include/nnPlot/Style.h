@@ -4,7 +4,7 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-23 21:29:02
+ * @LastEditTime : 2025-01-30 23:13:35
  * @Copyright    : PESONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 #ifndef STYLE_H
@@ -19,7 +19,7 @@ namespace nnPlot {
 /**
  * @author       : cmx
  * @brief        : Style类，决定了当前层和下一个连接的样式。
- * @note         : 这里虽然只有一个applyStyle接口，但是建议在子类实现中分别设置当前层与下一连接的。
+ * @note         : 这里虽然只有一个apply接口，但是建议在子类实现中分别设置当前层与下一连接的。
                    当前层和下一个连接的Style
  * @return        {*}
 **/
@@ -29,6 +29,7 @@ public:
     virtual void apply()const  = 0;
  // 静态方法，用于注册样式
     static void registerSelf(const std::string& type, std::function<std::unique_ptr<Style>()> creator);
+    //todo
     Property::LayerStyle layerStyle;
     Property::ConnectionStyle* nextConnectionStyle;
 };

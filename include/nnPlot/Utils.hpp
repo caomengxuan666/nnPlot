@@ -4,7 +4,7 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-23 21:39:57
+ * @LastEditTime : 2025-01-30 23:04:56
  * @Copyright    : PERSONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 
@@ -118,5 +118,27 @@ inline std::filesystem::path get_output_path(const std::string& filename, const 
 }
 
 } // namespace Utils::File
+
+namespace Utils::Time {
+/**
+ * @author       : cmx
+ * @brief        : generate a time stamp
+ * @return        {*}
+ **/
+
+inline const std::string getTimeStamp()
+{
+    // get current time stamp with chrono
+    auto now = std::chrono::system_clock::now();
+    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+    // 格式化成yy mm dd hh mm ss
+    std::tm* now_tm = std::localtime(&now_c);
+    std::stringstream ss;
+    ss << std::put_time(now_tm, "%Y-%m-%d-%H-%M-%S");
+
+    return ss.str();
+}
+
+}
 
 #endif // UTILS_HPP
