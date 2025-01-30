@@ -19,6 +19,10 @@ find_package(spdlog CONFIG REQUIRED)
 
 # 查找 GoogleTest
 find_package(GTest REQUIRED)
+
+# 查找 SDL2 和 SDL2_ttf 库
+find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 enable_testing()
 
 # 使用 pkg-config 查找 Cairo

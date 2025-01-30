@@ -16,4 +16,5 @@ foreach(CPP_FILE ${CPP_FILES})
     target_link_libraries(${TARGET_NAME} PRIVATE fmt::fmt)  # 确保 fmt 在 spdlog 之前
     target_link_libraries(${TARGET_NAME} PRIVATE spdlog::spdlog)
     target_link_libraries(${TARGET_NAME} PRIVATE nnPlot_shared)  # 链接动态库
+    target_link_libraries(${TARGET_NAME} PRIVATE SDL2::SDL2 SDL2_ttf::SDL2_ttf)
 endforeach()

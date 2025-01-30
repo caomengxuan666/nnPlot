@@ -16,7 +16,7 @@ add_library(nnPlot_shared SHARED ${SOURCES})
 target_link_libraries(nnPlot_shared PUBLIC ${Cairo_LIBRARIES})
 target_link_libraries(nnPlot_shared PUBLIC fmt::fmt)  # 链接 fmt
 target_link_libraries(nnPlot_shared PUBLIC spdlog::spdlog)  # 链接 spdlog
-
+target_link_libraries(nnPlot_shared PRIVATE SDL2::SDL2 SDL2_ttf::SDL2_ttf)
 # 设置动态库的符号可见性，避免spdlog和fmt符号冲突
 set_target_properties(nnPlot_shared PROPERTIES
     CXX_VISIBILITY_PRESET hidden  # 默认隐藏符号

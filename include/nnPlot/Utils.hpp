@@ -4,12 +4,13 @@
  * @Author       : caomengxuan666 2507560089@qq.com
  * @Version      : 0.0.1
  * @LastEditors  : caomengxuan666 2507560089@qq.com
- * @LastEditTime : 2025-01-30 23:04:56
+ * @LastEditTime : 2025-01-31 00:26:44
  * @Copyright    : PERSONAL DEVELOPER CMX., Copyright (c) 2025.
  **/
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
+#include <SDL2/SDL.h>
 #include <cairo/cairo.h>
 #include <filesystem>
 #include <nnPlot/Concrete_style.h>
@@ -141,4 +142,123 @@ inline const std::string getTimeStamp()
 
 }
 
+namespace Utils::Visual {
+// 直接将照片进行预览
+#ifdef WIN32
+#include <SDL.h>
+#endif
+
+/**
+ * @author       : cmx
+ * @brief        : Display a Cairo surface in a window using SDL2.
+ * @param surface : The Cairo surface to display.
+ * @return        : True if the surface was displayed successfully, false otherwise.
+ **/
+inline bool display_cairo_surface(cairo_surface_t* surface)
+{
+    // Initialize SDL
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        spdlog::error("SDL could not initialize! SDL_Error: {}", SDL_GetError());
+        return false;
+    }
+
+    // Get the width and height of the Cairo surface
+    int width = cairo_image_surface_get_width(surface);
+    int height = cairo_image_surface_get_height(surface);
+
+    // Create an SDL window
+    SDL_Window* window = SDL_CreateWindow("Cairo Surface Viewer",
+        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED,
+        width,
+        height,
+        SDL_WINDOW_SHOWN);
+    if (!window) {
+        spdlog::error("Window could not be created! SDL_Error: {}", SDL_GetError());
+        SDL_Quit();
+        return false;
+    }
+
+    // Create an SDL renderer
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        spdlog::error("Renderer could not be created! SDL_Error: {}", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+    // Create an SDL texture from the Cairo surface
+    SDL_Texture* texture = SDL_CreateTexture(renderer,
+        SDL_PIXELFORMAT_ARGB8888,
+        SDL_TEXTUREACCESS_STREAMING, // 使用流式纹理
+        width,
+        height);
+    if (!texture) {
+        spdlog::error("Texture could not be created! SDL_Error: {}", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+    // Lock the texture to update it
+    void* pixels;
+    int pitch;
+    if (SDL_LockTexture(texture, NULL, &pixels, &pitch) != 0) {
+        spdlog::error("Failed to lock texture! SDL_Error: {}", SDL_GetError());
+        SDL_DestroyTexture(texture);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+    // Copy the Cairo surface data to the SDL texture
+    unsigned char* data = cairo_image_surface_get_data(surface);
+    for (int y = 0; y < height; ++y) {
+        memcpy((unsigned char*)pixels + y * pitch, data + y * width * 4, width * 4);
+    }
+
+    // Unlock the texture
+    SDL_UnlockTexture(texture);
+
+    // Main loop flag
+    bool quit = false;
+
+    // Event handler
+    SDL_Event e;
+
+    // While application is running
+    Uint32 startTime = SDL_GetTicks(); // 记录开始时间
+    while (!quit) { // 去掉时间限制
+        // Handle events on queue
+        while (SDL_PollEvent(&e) != 0) {
+            // User requests quit
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+
+        // Clear screen
+        SDL_RenderClear(renderer);
+
+        // Render texture to screen
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+        // Update screen
+        SDL_RenderPresent(renderer);
+    }
+    // Destroy window
+    SDL_DestroyTexture(texture);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+
+    // Quit SDL subsystems
+    SDL_Quit();
+
+    return true;
+}
+
+}
 #endif // UTILS_HPP

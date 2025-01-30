@@ -1,10 +1,11 @@
 #include "nnPlot/concrete_layout.hpp"
-#include <nnPlot/LayoutEngine.h>
-#include <spdlog/details/circular_q.h>
 #include <nnPlot/Exporter.h>
+#include <nnPlot/LayoutEngine.h>
 #include <nnPlot/Model.h>
 #include <nnPlot/Renderer.h>
 #include <nnPlot/Surface.h>
+
+#include <spdlog/details/circular_q.h>
 #include <spdlog/spdlog.h>
 #include <unordered_map>
 
@@ -39,7 +40,7 @@ int main()
     model.connectLayers("fc2", "fc3");
     model.connectLayers("fc3", "output");
 
-    //应用垂直布局
+    // 应用垂直布局
     nnPlot::LayoutEngine<nnPlot::Layout::VerticalLayout> layoutEngine;
     layoutEngine.applyLayout(model); // 应用布局
 
@@ -100,5 +101,6 @@ int main()
 
     // 保存为SVG
     nnPlot::Exporter::exportToSVG(cairoSurface, "model_structure.svg", 1200, 800);
+
     return 0;
 }

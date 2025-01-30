@@ -2,7 +2,7 @@
 #include <cmath>
 #include <nnPlot/Exporter.h>
 #include <nnPlot/ThreeD_shape.hpp>
-
+#include <nnPlot/Utils.hpp>
 using namespace nnPlot::shape::Rectangle_3D;
 int main()
 {
@@ -57,6 +57,9 @@ int main()
 
     // 导出图像
     nnPlot::Exporter::exportToPNG(surface, "example_thinner_side_view.png");
+
+    // 预览图像
+    Utils::Visual::display_cairo_surface(surface);
 
     // 释放资源
     cairo_destroy(cr);
